@@ -13,17 +13,43 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', jsonParser, (req, res) => {
+	const requiredFields = ['title', 'content', 'author'];
+ 	for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
 	BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
 	res.status(201).send('status 201');
 });
 
 router.delete('/:id', (req, res) => {
 	BlogPosts.delete(req.params.id);
-	res.status(202).send('status 202');
+	res.status(204).send('status 202');
 });
 
 router.put('/:id', jsonParser, (req, res) => {
-	const newPost = {
+	const requiredFields = [
+  	'id', 'title', 'content', 'author', 'publishDate'];
+	for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  	}
+  	if (req.params.id !== req.body.id) {
+    	const message = (
+      		`Request path id (${req.params.id}) and request body id `
+      		`(${req.body.id}) must match`);
+    	console.error(message);
+    	return res.status(400).send(message);
+  	}
+  	const newPost = {
 		id: req.params.id,
 		title: req.body.title,
 		content: req.body.content,
@@ -31,7 +57,7 @@ router.put('/:id', jsonParser, (req, res) => {
 		publishDate: req.body.publishDate
 	}
 	BlogPosts.update(newPost);
-	res.status(202).send('status 202')
+	res.status(200).send('status 202')
 });
 
 module.exports = router;

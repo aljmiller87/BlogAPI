@@ -12,54 +12,33 @@ app.listen(process.env.PORT || 8080, () => {
 });
 
 
+// let server;
 
+// function runServer() {
+//   const port = process.env.PORT || 8080;
+//   return new Promise((resolve, reject) => {
+//     server = app.listen(port, () => {
+//       console.log(`Your app is listening on port ${port}`);
+//       resolve(server);
+//     }).on('error', err => {
+//       reject(err)
+//     });
+//   });
+// }
 
-// const express = require('express');
-// const router = express.Router();
-// const bodyParser = require('body-parser');
-// const jsonParser = bodyParser.json();
-// const app = express();
-// const {BlogPosts} = require('./module');
-
-
-// BlogPosts.create('types of trees','sycammore,elm,etc.','Bilbo baggins', 'Dec 16');
-
-// app.get('/blog-posts', (req, res) => {
-// 	res.send(BlogPosts.get());
-// });
-
-// app.post('/blog-posts', jsonParser, (req, res) => {
-// 	BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
-// 	res.status(201).send('status 201');
-// });
-
-// app.delete('/blog-posts/:id', (req, res) => {
-// 	BlogPosts.delete(req.params.id);
-// 	res.status(202).send('status 202');
-// });
-
-// app.put('/blog-posts/:id', jsonParser, (req, res) => {
-// 	const newPost = {
-// 		id: req.params.id,
-// 		title: req.body.title,
-// 		content: req.body.content,
-// 		author: req.body.author,
-// 		publishDate: req.body.publishDate
-// 	}
-// 	BlogPosts.update(newPost);
-// 	res.status(202).send('status 202')
-// });
-
-
-
-
-
-
-
-
-
-
-
-// app.listen(process.env.PORT || 8080, () => {
-//   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-// });
+// // like `runServer`, this function also needs to return a promise.
+// // `server.close` does not return a promise on its own, so we manually
+// // create one.
+// function closeServer() {
+//   return new Promise((resolve, reject) => {
+//     console.log('Closing server');
+//     server.close(err => {
+//       if (err) {
+//         reject(err);
+//         // so we don't also call `resolve()`
+//         return;
+//       }
+//       resolve();
+//     });
+//   });
+// }

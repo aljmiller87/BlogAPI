@@ -4,7 +4,7 @@
   "description": "",
   "main": "module.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js"
   },
   "repository": {
@@ -19,7 +19,11 @@
   "homepage": "https://github.com/aljmiller87/BlogAPI#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "chai-http": "^3.0.0",
     "express": "^4.14.0",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
   }
 }
