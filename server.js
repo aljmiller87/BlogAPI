@@ -14,13 +14,9 @@ app.use(bodyParser.json());
 app.get('/blog-posts', (req, res) => {
   BlogModel
     .find()
-    .limit(10)
     .exec()
     .then(blogposts => {
-      res.json({
-        blogposts: blogposts.map(
-          (blogpost) => blogpost.apiRepr())
-      });
+      res.json(blogposts.map(blogpost => blogpost.apiRepr()));
     })
     .catch(
       err => {
@@ -41,7 +37,7 @@ app.get('/blog-posts/:id',(req,res) => {
 });
 
 app.post('/blog-posts',(req,res) => {
-  const requiredFields =['title','content','author','publishDate'];
+  const requiredFields =['title','content','author'];
   requiredFields.forEach(field => {
    
    if(!(field in req.body && req.body[field])){
@@ -54,7 +50,7 @@ app.post('/blog-posts',(req,res) => {
      title: req.body.title,
      content: req.body.content,
      author: req.body.author,
-     publishDate: req.body.publishDate })
+     })
     .then(
       blogpost => res.status(201).json(blogpost.apiRepr()))
      .catch(err => {
@@ -75,7 +71,7 @@ app.put('/blog-posts/:id', (req, res) => {
     res.status(400).json({message: message});
   }
   const toUpdate = {};
-  const updateableFields = ['title', 'content', 'author', 'publishDate'];
+  const updateableFields = ['title', 'content', 'author', 'created'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {
