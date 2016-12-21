@@ -1,3 +1,44 @@
+const mongoose = require('mongoose');
+
+const blogSchema = mongoose.Schema({
+  title: { type: String, unique: true, required: true },
+  content: { type: String, required: true },
+  author: { type: String, required: true },
+  publishDate: {type: String, required: true}
+});
+
+blogSchema.methods.apiRepr = function() {
+  return {
+    id: this._id,
+    title: this.title,
+    content: this.content,
+    author: this.author,
+    publishDate: this.publishDate
+  };
+}
+
+const BlogModel = mongoose.model('BlogModel', blogSchema);
+
+module.exports = {BlogModel};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* BELOW IS CODE BEFORE USING MONGO/MONGOOSE
+
 const uuid = require('uuid');
 
 // this module provides volatile storage, using a `BlogPost`
@@ -68,3 +109,5 @@ function createBlogPostsModel() {
 
 
 module.exports = {BlogPosts: createBlogPostsModel()};
+
+*/
